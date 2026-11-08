@@ -31,29 +31,29 @@ FeaturePlot(UCCRC,features = c("Creb5"),reduction = "tsne")
 FeaturePlot(UCCRC,features = c("Fpr1"),reduction = "tsne")
 FeaturePlot(UCCRC,features = c("Lcp1"),reduction = "tsne")
 UCCRC@meta.data$library=sub("([A-Z]+)\\d+","\\1",UCCRC@meta.data$library)
-# 基础版
+
 VlnPlot(
   UCCRC,
   features = "Lcp1",
-  group.by = "library",  # 替换为你的分组列名（如"group"）
-  pt.size = 0.1,          # 减小点的大小
-  cols = c("#1F77B4", "#FF7F0E","red","yellow")  # UC和CRC组的颜色
+  group.by = "library",  
+  pt.size = 0.1,         
+  cols = c("#1F77B4", "#FF7F0E","red","yellow")  
 ) + 
-  labs(title = "Lcp1 Expression in UC vs CRC") +  # 标题
-  theme_classic()         # 简洁主题
+  labs(title = "Lcp1 Expression in UC vs CRC") +  
+  theme_classic()         
 
-# 比较所有细胞中UC vs CRC的表达差异
+
 markers_UC_vs_CRC <- FindMarkers(
   UCandCRC,
-  ident.1 = "UC",       # 替换为你的分组标签
+  ident.1 = "UC",       
   ident.2 = "CRC",
   group.by = "library",
   features = "Lcp1"
 )
-# 输出结果
+
 markers_UC_vs_CRC
 ifnb@meta.data$library=sub("([A-Z]+)\\d+","\\1",ifnb@meta.data$library)
-#常规作图
+
 table(ifnb@meta.data$cell_type)
 ifnb@meta.data$cell_type=factor(ifnb@meta.data$cell_type,
                                        levels = c("Macrophage",
@@ -120,7 +120,7 @@ DotPlot(ifnb,features = a,group.by = "cell_type")+coord_flip()+
   scale_color_gradientn(colors = c("#330066", "#336699", "#66cc66", "#FFCC33"))
 
 
-#细胞比例图
+
 table(ifnb$library)
 prop.table(table(Idents(ifnb)))
 table(Idents(ifnb),ifnb$library)
@@ -136,7 +136,7 @@ ggplot(cellratio)+
   coord_flip()+
   theme(panel.border = element_rect(fill = NA,color = "black",size = 0.5,linetype = "solid"))+
   scale_fill_manual(values = colour)
-#翻转
+
 ggplot(cellratio)+
   geom_bar(aes(x=sample,y=ratio,fill=celltype),stat = "identity",width = 0.7,size=0.5,colour="#222222")+
   theme_classic()+
@@ -145,4 +145,4 @@ ggplot(cellratio)+
   theme(panel.border = element_rect(fill = NA,color = "black",size = 0.5,linetype = "solid"))+
   scale_fill_manual(values = colour)
 
-saveRDS(ifnb,"UCCRC不分组注释后.rds")
+saveRDS(ifnb,"UCCRC.rds")

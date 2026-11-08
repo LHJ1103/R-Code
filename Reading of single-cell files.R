@@ -17,7 +17,7 @@ saveRDS(sce,"UC2.rds")
 
 
 
-##第二种
+
 library(tidyr)
 library(tidyverse)
 library(org.Mm.eg.db)

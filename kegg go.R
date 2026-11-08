@@ -3,7 +3,7 @@ library(clusterProfiler)
 library(org.Hs.eg.db)
 library(ggplot2)
 
-upGene = read.csv("16个DEG表达谱.csv",row.names = 1)
+upGene = read.csv("16DEG.csv",row.names = 1)
 #Genes = read.csv("E:/Rdata/KEGG GO/Genes.csv")
 Genes = bitr(rownames(upGene),
             fromType = "SYMBOL",

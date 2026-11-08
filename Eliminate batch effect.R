@@ -1,7 +1,7 @@
 library(sva)
 library(limma)
 mm<-read.csv("GSE37283(UC+UCD).csv",row.names = 1)
-mm2<-read.csv("GSE3629（log2_转化）.csv",row.names = 1)
+mm2<-read.csv("GSE3629（log2）.csv",row.names = 1)
 
 GSE37283_exp<-mm
 boxplot(GSE37283_exp[,1:15],las="2")

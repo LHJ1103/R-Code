@@ -8,8 +8,7 @@ library(glmGamPoi)
 #plan("multisession", workers = 4) #规划多线程
 #options(future.globals.maxSize = 2000 * 1024^2)
 
-#####封装函数-10X#####
-# name 样本名称, label 新的名字, input 矩阵路径，dim.usage 设置主成分PCA个数, gene.column 10X文件的feature里gene有几列
+
 rm_doublet <- function(name=NULL,label=NULL,input=NULL,dim.usage=30,auto="false") {
   EC <- readRDS(paste0(label,".rds"))
   dir.create(paste0("DoulbletFinder_",label))
@@ -18,7 +17,7 @@ rm_doublet <- function(name=NULL,label=NULL,input=NULL,dim.usage=30,auto="false"
   gc()
   inpath <- list.files(path = input,pattern = name,full.names = T)
   if (auto=="true") {
-    inpath <- paste0(inpath,"/","04.Matrix/")#这是另一种矩阵路径结构
+    inpath <- paste0(inpath,"/","04.Matrix/")
   }
   print(paste0("数据读取中！"," 开始时间:",format(Sys.time(), "%Y%m%d %X"),sep = " "))
   
@@ -125,15 +124,15 @@ rm_doublet <- function(name=NULL,label=NULL,input=NULL,dim.usage=30,auto="false"
   return(EC)
 }
 
-####运行-10X####
-home <- "E:/UC-CRC/单细胞/GSE264408UC/UC1-4/"#最后加/
+
+home <- "E:/UC-CRC/GSE264408UC/UC1-4/"
 for (i in c("UC1")) {
   setwd(home)
   assign(i,rm_doublet(i,i,paste0(home,i,'/')))
 }
 
 
-#小提琴图
+
 colnames(UC1@meta.data)
 VlnPlot(UC1,group.by = "doublet_info",
         features = c("nCount_RNA","nFeature_RNA"),
@@ -141,15 +140,15 @@ VlnPlot(UC1,group.by = "doublet_info",
 
 
 
-####保存####
+
 setwd(home)
 saveRDS(UC1,"UC1（未删除双细胞）.rds")
 
-#去除双细胞
+
 UC1 = subset(UC1,doublet_info=="Singlet")
 saveRDS(UC1,"UC1（删除双细胞）.rds")
 
-#save(UC1,file = "PCa1_doubletInfo.Rdata")
+
 
 
 

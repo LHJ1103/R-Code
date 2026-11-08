@@ -3,7 +3,7 @@ setwd("E:/Rdata/WGCNA/")
 getwd()
 library(WGCNA)
 options(stringAsFactors = FALSE)
-femData = read.csv("GSE3629(分析用).csv",row.names = 1)
+femData = read.csv("GSE3629.csv",row.names = 1)
 
 dim(femData)
 names(femData)
@@ -36,7 +36,7 @@ datExpr = as.data.frame(datExpr)
 sampleTree_final = hclust(dist(datExpr),method = "average")
 plot(sampleTree_final,main = "Sample clustering to detect outliers final",sub = "", xlab = "", cex.lab = 1.5,cex.axis = 1.5, cex.main = 2)
 
-#热图
+
 data.clin = read.csv("ClinicalTrait.CSV",header = T)
 rownames(data.clin) = data.clin$Sample_geo_accession
 data.clin = data.clin[,-1]
@@ -51,7 +51,7 @@ plotDendroAndColors(sampleTree_final,traitColors,
                     groupLabels = names(data.clin),
                     main = "Sample dendrogram and trait heatmap")
 
-#软阈值
+
 powers = c(c(1:10),seq(from = 12,to=20,by=2))
 sft = pickSoftThreshold(datExpr,powerVector = powers,verbose = 5)
 sft

@@ -56,12 +56,6 @@ DimPlot(pbmc,group.by = 'Phase',reduction = "tsne")
 
 
 
-
-
-
-
-
-# 转换G1期基因对示例
 g1_ensembl <- mm.pairs$G1[,1]
 g1_symbol <- bitr(g1_ensembl, fromType="ENSEMBL", toType="SYMBOL", OrgDb="org.Mm.eg.db")
 View(g1_symbol)
